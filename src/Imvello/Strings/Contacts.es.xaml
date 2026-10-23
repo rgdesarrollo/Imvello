@@ -1,0 +1,20 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Contacts.SearchToolTip">Buscar contactos</sys:String>
+    <sys:String x:Key="Contacts.NewContact">Nuevo contacto</sys:String>
+    <sys:String x:Key="Contacts.Count">{0} contactos</sys:String>
+    <sys:String x:Key="Contacts.SelectHint">Seleccione un contacto o cree uno nuevo</sys:String>
+    <sys:String x:Key="Contacts.Name">Nombre</sys:String>
+    <sys:String x:Key="Contacts.Email">Correo electrónico</sys:String>
+    <sys:String x:Key="Contacts.Phone">Teléfono</sys:String>
+    <sys:String x:Key="Contacts.Company">Empresa</sys:String>
+    <sys:String x:Key="Contacts.Notes">Notas</sys:String>
+    <sys:String x:Key="Contacts.TimesEmailed">Correos enviados: {0}</sys:String>
+    <sys:String x:Key="Contacts.LastEmailed">Último correo: {0}</sys:String>
+    <sys:String x:Key="Contacts.Save">Guardar</sys:String>
+    <sys:String x:Key="Contacts.SendEmail">Enviar correo</sys:String>
+    <sys:String x:Key="Contacts.Delete">Eliminar</sys:String>
+    <sys:String x:Key="Contacts.DeleteConfirm">¿Eliminar el contacto "{0}"?</sys:String>
+    <sys:String x:Key="Contacts.InvalidEmail">Introduzca una dirección de correo electrónico válida.</sys:String>
+</ResourceDictionary>

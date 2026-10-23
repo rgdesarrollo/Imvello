@@ -1,0 +1,23 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Calendar.NewEvent">New event</sys:String>
+    <sys:String x:Key="Calendar.Today">Today</sys:String>
+    <sys:String x:Key="Calendar.Count">{0} events</sys:String>
+    <sys:String x:Key="Calendar.NoEvents">No events on this day</sys:String>
+    <sys:String x:Key="Calendar.SelectHint">Select an event or create a new one</sys:String>
+    <sys:String x:Key="Calendar.Title">Title</sys:String>
+    <sys:String x:Key="Calendar.Location">Location</sys:String>
+    <sys:String x:Key="Calendar.Date">Date</sys:String>
+    <sys:String x:Key="Calendar.Start">Start</sys:String>
+    <sys:String x:Key="Calendar.End">End</sys:String>
+    <sys:String x:Key="Calendar.AllDay">All day</sys:String>
+    <sys:String x:Key="Calendar.Notes">Notes</sys:String>
+    <sys:String x:Key="Calendar.Save">Save</sys:String>
+    <sys:String x:Key="Calendar.Delete">Delete</sys:String>
+    <sys:String x:Key="Calendar.Untitled">(No title)</sys:String>
+    <sys:String x:Key="Calendar.AllDayLabel">All day</sys:String>
+    <sys:String x:Key="Calendar.DeleteConfirm">Delete the event "{0}"?</sys:String>
+    <sys:String x:Key="Calendar.InvalidTitle">Enter a title for the event.</sys:String>
+    <sys:String x:Key="Calendar.InvalidTime">Enter valid start and end times (HH:mm), with the end after the start.</sys:String>
+</ResourceDictionary>

@@ -1,0 +1,122 @@
+<Window x:Class="Imvello.Views.AddAccountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource Dialogs.AddAccountTitle}" Style="{StaticResource ImvelloWindow}" Width="560" SizeToContent="Height" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False">
+    <DockPanel Margin="32,24,32,24">
+        <Border x:Name="ErrorBar" DockPanel.Dock="Bottom" Background="{DynamicResource ErrorBackgroundBrush}" CornerRadius="4" Padding="10,6" Margin="0,14,0,0" Visibility="Collapsed">
+            <TextBlock x:Name="ErrorText" TextWrapping="Wrap" Foreground="{DynamicResource ErrorTextBrush}"/>
+        </Border>
+    <Grid>
+        <StackPanel x:Name="EmailPage">
+            <TextBlock Text="&#xE715;" Style="{StaticResource Icon}" FontSize="40" Foreground="{DynamicResource AccentBrush}" HorizontalAlignment="Left"/>
+            <TextBlock Text="{DynamicResource Dialogs.AddAccountHeading}" FontSize="22" FontWeight="SemiBold" Margin="0,10,0,0"/>
+            <TextBlock Text="{DynamicResource Dialogs.AddAccountEmailPrompt}" Foreground="{DynamicResource SubtleTextBrush}" Margin="0,4,0,18"/>
+            <TextBox x:Name="EmailBox" Style="{StaticResource FieldBox}" Height="34" FontSize="14"/>
+            <CheckBox x:Name="ManualCheck" Content="{DynamicResource Dialogs.AddAccountManual}" Margin="0,12,0,0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,24,0,0">
+                <Button Content="{DynamicResource Dialogs.Connect}" Style="{StaticResource PrimaryButton}" IsDefault="True" Click="Next_Click" MinWidth="100"/>
+                <Button Content="{DynamicResource Common.Cancel}" Style="{StaticResource SecondaryButton}" IsCancel="True" Margin="8,0,0,0" MinWidth="90"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Name="ProviderPage" Visibility="Collapsed">
+            <TextBlock x:Name="ProviderTitle" FontSize="22" FontWeight="SemiBold"/>
+            <TextBlock x:Name="ProviderEmail" Foreground="{DynamicResource SubtleTextBrush}" Margin="0,4,0,18"/>
+            <TextBlock Text="{DynamicResource Dialogs.YourNameHint}"/>
+            <TextBox x:Name="ProviderNameBox" Style="{StaticResource FieldBox}" Height="30" Margin="0,4,0,16"/>
+
+            <Button x:Name="OAuthButton" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Stretch" Padding="12,9" Click="OAuth_Click">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE8D7;" Style="{StaticResource Icon}" FontSize="14" Foreground="{DynamicResource OnAccentBrush}" Margin="0,0,8,0"/>
+                    <TextBlock x:Name="OAuthText" Text="{DynamicResource Dialogs.SignInWithBrowser}"/>
+                </StackPanel>
+            </Button>
+            <TextBlock x:Name="OAuthHint" TextWrapping="Wrap" Foreground="{DynamicResource SubtleTextBrush}" FontSize="11" Margin="0,6,0,0"/>
+
+            <StackPanel x:Name="PasswordSection">
+                <Grid x:Name="OrSeparator" Margin="0,18,0,12">
+                    <Separator VerticalAlignment="Center"/>
+                    <TextBlock Text="{DynamicResource Dialogs.OrUseAPassword}" Background="{DynamicResource WindowBrush}" HorizontalAlignment="Center" Foreground="{DynamicResource SubtleTextBrush}"/>
+                </Grid>
+                <Border x:Name="AppPasswordSteps" Background="{DynamicResource AccentLightBrush}" CornerRadius="6" Padding="14,12" Margin="0,0,0,14">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource Dialogs.GmailStepsTitle}" FontWeight="SemiBold"/>
+                        <TextBlock Text="{DynamicResource Dialogs.GmailSteps}" TextWrapping="Wrap" Margin="0,6,0,10" LineHeight="19"/>
+                        <Button Style="{StaticResource SecondaryButton}" HorizontalAlignment="Left" Padding="12,5" Click="CreateAppPassword_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE8A7;" Style="{StaticResource Icon}" FontSize="12" Margin="0,0,8,0"/>
+                                <TextBlock Text="{DynamicResource Dialogs.CreateAppPassword}"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
+                <TextBlock x:Name="PasswordLabel" Text="{DynamicResource Dialogs.Password}"/>
+                <PasswordBox x:Name="ProviderPasswordBox" Height="30" Padding="4,5" Margin="0,4,0,0" BorderBrush="{DynamicResource ControlBorderBrush}"/>
+                <TextBlock x:Name="PasswordHint" TextWrapping="Wrap" Foreground="{DynamicResource SubtleTextBrush}" FontSize="11" Margin="0,6,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,22,0,0">
+                <Button Content="{DynamicResource Common.Back}" Style="{StaticResource SecondaryButton}" Click="Back_Click" MinWidth="90" Margin="0,0,8,0"/>
+                <Button x:Name="ProviderConnect" Content="{DynamicResource Dialogs.Connect}" Style="{StaticResource PrimaryButton}" Click="PasswordConnect_Click" MinWidth="100"/>
+                <Button Content="{DynamicResource Common.Cancel}" Style="{StaticResource SecondaryButton}" IsCancel="True" Margin="8,0,0,0" MinWidth="90"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Name="ImapPage" Visibility="Collapsed">
+            <TextBlock Text="{DynamicResource Dialogs.ImapAccountSettings}" FontSize="22" FontWeight="SemiBold" Margin="0,0,0,14"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="130"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="34"/>
+                    <RowDefinition Height="34"/>
+                    <RowDefinition Height="34"/>
+                    <RowDefinition Height="34"/>
+                    <RowDefinition Height="14"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="34"/>
+                    <RowDefinition Height="24"/>
+                    <RowDefinition Height="34"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="{DynamicResource Dialogs.YourName}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" x:Name="NameBox" Style="{StaticResource FieldBox}" Margin="0,3"/>
+                <TextBlock Grid.Row="1" Text="{DynamicResource Dialogs.EmailAddress}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" x:Name="ImapEmailBox" Style="{StaticResource FieldBox}" Margin="0,3"/>
+                <TextBlock Grid.Row="2" Text="{DynamicResource Dialogs.UserName}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" x:Name="UserBox" Style="{StaticResource FieldBox}" Margin="0,3"/>
+                <TextBlock Grid.Row="3" Text="{DynamicResource Dialogs.Password}" VerticalAlignment="Center"/>
+                <PasswordBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" x:Name="PasswordBox" Margin="0,3" Padding="4,3" BorderBrush="{DynamicResource ControlBorderBrush}"/>
+
+                <TextBlock Grid.Row="5" Grid.ColumnSpan="4" Text="{DynamicResource Dialogs.IncomingMailImap}" FontWeight="SemiBold" VerticalAlignment="Bottom"/>
+                <TextBlock Grid.Row="6" Text="{DynamicResource Dialogs.Server}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="6" Grid.Column="1" x:Name="ImapHostBox" Style="{StaticResource FieldBox}" Margin="0,3"/>
+                <TextBox Grid.Row="6" Grid.Column="2" x:Name="ImapPortBox" Style="{StaticResource FieldBox}" Margin="6,3,0,3" ToolTip="{DynamicResource Dialogs.Port}"/>
+                <ComboBox Grid.Row="6" Grid.Column="3" x:Name="ImapSecBox" Margin="6,3,0,3" VerticalContentAlignment="Center"/>
+
+                <TextBlock Grid.Row="7" Grid.ColumnSpan="4" Text="{DynamicResource Dialogs.OutgoingMailSmtp}" FontWeight="SemiBold" VerticalAlignment="Bottom"/>
+                <TextBlock Grid.Row="8" Text="{DynamicResource Dialogs.Server}" VerticalAlignment="Center"/>
+                <TextBox Grid.Row="8" Grid.Column="1" x:Name="SmtpHostBox" Style="{StaticResource FieldBox}" Margin="0,3"/>
+                <TextBox Grid.Row="8" Grid.Column="2" x:Name="SmtpPortBox" Style="{StaticResource FieldBox}" Margin="6,3,0,3" ToolTip="{DynamicResource Dialogs.Port}"/>
+                <ComboBox Grid.Row="8" Grid.Column="3" x:Name="SmtpSecBox" Margin="6,3,0,3" VerticalContentAlignment="Center"/>
+            </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,22,0,0">
+                <Button Content="{DynamicResource Common.Back}" Style="{StaticResource SecondaryButton}" Click="Back_Click" MinWidth="90" Margin="0,0,8,0"/>
+                <Button Content="{DynamicResource Dialogs.TestSettings}" Style="{StaticResource SecondaryButton}" Click="Test_Click" MinWidth="100" Margin="0,0,8,0"/>
+                <Button Content="{DynamicResource Dialogs.Connect}" Style="{StaticResource PrimaryButton}" Click="ImapConnect_Click" MinWidth="100"/>
+                <Button Content="{DynamicResource Common.Cancel}" Style="{StaticResource SecondaryButton}" IsCancel="True" Margin="8,0,0,0" MinWidth="90"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel x:Name="BusyPanel" Visibility="Collapsed" VerticalAlignment="Center" MinHeight="200">
+            <TextBlock x:Name="BusyText" Text="{DynamicResource Dialogs.Connecting}" FontSize="18" HorizontalAlignment="Center" Margin="0,50,0,14"/>
+            <ProgressBar IsIndeterminate="True" Height="4" Width="260"/>
+            <Button Content="{DynamicResource Common.Cancel}" Style="{StaticResource SecondaryButton}" HorizontalAlignment="Center" Margin="0,24,0,0" Click="CancelBusy_Click"/>
+        </StackPanel>
+    </Grid>
+    </DockPanel>
+</Window>

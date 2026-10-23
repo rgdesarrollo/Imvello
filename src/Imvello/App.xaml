@@ -1,0 +1,17 @@
+﻿<Application x:Class="Imvello.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="clr-namespace:Imvello.Views"
+             ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+            <v:InverseBoolToVisibilityConverter x:Key="InverseBoolToVis"/>
+            <v:SizeConverter x:Key="SizeConv"/>
+            <v:NullToVisibilityConverter x:Key="NotNullToVis"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

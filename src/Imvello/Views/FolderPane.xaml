@@ -1,0 +1,108 @@
+<UserControl x:Class="Imvello.Views.FolderPane"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="clr-namespace:Imvello.Views"
+             xmlns:vm="clr-namespace:Imvello.ViewModels">
+    <UserControl.Resources>
+        <HierarchicalDataTemplate DataType="{x:Type vm:FolderNode}" ItemsSource="{Binding Children}">
+            <Grid Height="28" Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="24"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding Icon}" Style="{StaticResource Icon}" FontSize="14" Foreground="{DynamicResource TextBrush}"/>
+                <TextBlock x:Name="name" Grid.Column="1" Text="{Binding Name}" Foreground="{DynamicResource TextBrush}" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Margin="4,0,0,0"/>
+                <TextBlock x:Name="badge" Grid.Column="2" Text="{Binding BadgeText}" VerticalAlignment="Center" Margin="6,0,8,0"
+                           Foreground="{DynamicResource AccentBrush}" FontWeight="SemiBold"/>
+            </Grid>
+            <HierarchicalDataTemplate.Triggers>
+                <DataTrigger Binding="{Binding IsBold}" Value="True">
+                    <Setter TargetName="name" Property="FontWeight" Value="SemiBold"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsAccountNode}" Value="True">
+                    <Setter TargetName="name" Property="FontWeight" Value="SemiBold"/>
+                    <Setter TargetName="name" Property="FontSize" Value="13"/>
+                    <Setter TargetName="badge" Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </HierarchicalDataTemplate.Triggers>
+        </HierarchicalDataTemplate>
+
+        <Style x:Key="FolderItem" TargetType="TreeViewItem">
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
+            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+            <Setter Property="AllowDrop" Value="True"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+            <EventSetter Event="Drop" Handler="Item_Drop"/>
+            <EventSetter Event="DragOver" Handler="Item_DragOver"/>
+            <EventSetter Event="PreviewMouseRightButtonDown" Handler="Item_RightClick"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TreeViewItem">
+                        <StackPanel>
+                            <Border x:Name="bd" Background="Transparent" CornerRadius="4" Margin="2,0">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="18"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <ToggleButton x:Name="exp" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                                  Style="{StaticResource FlatButton}" Padding="0" Focusable="False">
+                                        <TextBlock x:Name="chev" Text="&#xE76C;" Style="{StaticResource Icon}" FontSize="9" Foreground="{DynamicResource TextBrush}"/>
+                                    </ToggleButton>
+                                    <ContentPresenter Grid.Column="1" ContentSource="Header"/>
+                                </Grid>
+                            </Border>
+                            <ItemsPresenter x:Name="items" Margin="14,0,0,0" Visibility="Collapsed"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter TargetName="items" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="chev" Property="Text" Value="&#xE70D;"/>
+                            </Trigger>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="exp" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                            <Trigger SourceName="bd" Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{DynamicResource HoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="bd" Property="Background" Value="{DynamicResource SelectedBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TreeView">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource FolderItem}"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TreeView">
+                        <ItemsPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Border Background="{DynamicResource PaneBrush}">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <StackPanel Margin="2,6,2,6">
+                <Expander IsExpanded="True" Margin="4,0,0,4" Foreground="{DynamicResource TextBrush}">
+                    <Expander.Header>
+                        <TextBlock Text="{DynamicResource Main.Favorites}" Foreground="{DynamicResource TextBrush}" FontWeight="SemiBold" FontSize="13"/>
+                    </Expander.Header>
+                    <TreeView x:Name="FavoritesTree" ItemsSource="{Binding Favorites}" SelectedItemChanged="Tree_SelectedItemChanged" Margin="-4,2,0,0"/>
+                </Expander>
+                <Separator Margin="8,4" Background="{DynamicResource BorderBrush}"/>
+                <TreeView x:Name="FoldersTree" ItemsSource="{Binding FolderTree}" SelectedItemChanged="Tree_SelectedItemChanged"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>
